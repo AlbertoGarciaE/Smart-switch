@@ -4,7 +4,7 @@ station_cfg.ssid="yourssid"
 station_cfg.pwd="yourpwd"
 -- Config mqtt
 mqtt_config={}
-mqtt_config.host = "192.168.1.47"  
+mqtt_config.host = "192.168.1.36"  
 mqtt_config.port = 1883
 mqtt_config.user = ""
 mqtt_config.pwd = ""
@@ -63,7 +63,7 @@ function mqtt_start()
     -- m:on("connect", function)).
     m:on("connect", handle_connect)
     m:on("offline", handle_offline)
-    m:on("message",handle_message)
+    m:on("message", handle_message)
     
     -- Connect to broker
     m:connect(mqtt_config.host, mqtt_config.port, 0, nil,
@@ -75,15 +75,15 @@ end
 function handle_connect(client)
 	print("Connected to broker")
 	-- subscribe topic with qos = 0        
-	client:subscribe(mqtt_config.endpoint .. "action",0,function(conn) print("Successfully subscribed to " .. mqtt_config.endpoint .. "action") end)
-	client:subscribe(mqtt_config.endpoint .. "state",0,function(conn) print("Successfully subscribed to " .. mqtt_config.endpoint .. "state") end)
+	client:subscribe(mqtt_config.endpoint .. "action",0,function(client) print("Successfully subscribed to topic") end)
+	client:subscribe(mqtt_config.endpoint .. "state",0,function(client) print("Successfully subscribed to topic") end)
 end
 
-local function publish_state()
+local function publish_state(client)
 	if gpio.read(blue_led) == 0 then
-		client:publish(mqtt_config.endpoint .. "state","pin_state = LOW",0,0,function(conn) print("state sent") end )
+		client:publish(mqtt_config.endpoint .. "state","pin_state = ON",0,0,function(client) print("state sent") end )
 	else
-		client:publish(mqtt_config.endpoint .. "state","pin_state = HIGH",0,0,function(conn) print("state sent") end )
+		client:publish(mqtt_config.endpoint .. "state","pin_state = OFF",0,0,function(client) print("state sent") end )
 	end
 end
 	
@@ -91,25 +91,26 @@ function handle_offline(client)
 	print ("offline")
 end
 
-function handle_message(conn, topic, data) 
+function handle_message(client, topic, data) 
 	if data ~= nil then
 		print(topic .. ": " .. data)
 		if topic == mqtt_config.endpoint .. "action" then
 			set_pin_state(data)
-			publish_state()
+			publish_state(client)
 		end
 	end
 end
 	
 function set_pin_state(state)
-	if state == "LOW" then
+	if state == "ON" then
 		gpio.write(blue_led, gpio.LOW)
-	end
-	if state == "HIGH" then
-		gpio.write(blue_led, gpio.HIGH)
 	else
-		print("Unrecognize state value=" .. state)
-	end	
+    	if state == "OFF" then
+    		gpio.write(blue_led, gpio.HIGH)
+    	else
+    		print("Unrecognize state value=" .. state)
+    	end	
+    end
 end
 
 function main()
