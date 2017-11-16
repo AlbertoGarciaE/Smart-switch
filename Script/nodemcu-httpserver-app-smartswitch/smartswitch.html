@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Swicht</title>
+    <style>
+        .switches {
+            height: 120px;
+            margin: 60px auto;
+            width: 135px;
+            padding: 4px 2px;
+            background: #5B554F;
+            box-shadow: inset 0 2px 8px 1px black;
+            border-radius: 4px;
+            position: relative;
+        }
+        .switches:before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: -35px;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            padding: 35px 25px;
+            background-image: -webkit-gradient(linear, 0 0, 305 0, from(#796c62), color-stop(0.009, #cec8c2), color-stop(0.013, #e2ddd9), color-stop(0.032, #f5f3f0), color-stop(0.977, #f4f1ef), color-stop(0.996, #7a6d63), to(#7a6d63));
+            background-image: -webkit-linear-gradient(360deg, #796c62, #cec8c2 0%, #e2ddd9 1.3%, #f5f3f0 3.2%, #f4f1ef 97.7%, #7a6d63 100%, #7a6d63);
+            background-image: -moz-linear-gradient(360deg, #796c62, #cec8c2 0%, #e2ddd9 1.3%, #f5f3f0 3.2%, #f4f1ef 97.7%, #7a6d63 100%, #7a6d63);
+            background-image: -o-linear-gradient(360deg, #796c62, #cec8c2 0%, #e2ddd9 1.3%, #f5f3f0 3.2%, #f4f1ef 97.7%, #7a6d63 100%, #7a6d63);
+            background-image: linear-gradient(90deg, #796c62, #cec8c2 0%, #e2ddd9 1.3%, #f5f3f0 3.2%, #f4f1ef 97.7%, #7a6d63 100%, #7a6d63);
+            box-shadow: 0 1px 3px 5px rgba(0, 0, 0, .5), inset 0 1px 0 white;
+            border-radius: 2px;
+        }
+        .switches:after {
+            content: "";
+            position: absolute;
+            bottom: -35px;
+            z-index: -2;
+            left: -2%;
+            width: 104%;
+            box-shadow: 0 1px 4px 12px rgba(0, 0, 0, .8);
+        }
+        .switch {
+            float: left;
+            width: 98%;
+            margin: 0 1%;
+            height: 100%;
+            background-image: -webkit-gradient(linear, 0 0, 0 119, color-stop(0.016, #e9e2df), color-stop(0.949, #d1c3bb), to(#b4a69f));
+            background-image: -webkit-linear-gradient(#e9e2df 1.6%, #d1c3bb 94.9%, #b4a69f);
+            background-image: -moz-linear-gradient(#e9e2df 1.6%, #d1c3bb 94.9%, #b4a69f);
+            background-image: -o-linear-gradient(#e9e2df 1.6%, #d1c3bb 94.9%, #b4a69f);
+            background-image: linear-gradient(#e9e2df 1.6%, #d1c3bb 94.9%, #b4a69f);
+            box-shadow: inset 0 10px rgba(255, 255, 255, .7), inset 0 11px 1px rgba(250, 250, 250, .2), inset 0 -2px 1px rgba(0, 0, 0, .2);
+            border-radius: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .switch:before {
+            content: "";
+            background: rgba(0, 0, 0, .1);
+            width: 36%;
+            position: absolute;
+            height: 4px;
+            margin: 16px 32%;
+            border-radius: 12px;
+            box-shadow: inset 0 0 1px rgba(0, 0, 0, .2);
+            border: 1px solid rgba(0, 0, 0, .1);
+        }
+        .switch:after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: -moz-linear-gradient(top, rgba(65, 50, 0, 0.25) 0%, rgba(65, 50, 0, 0.25) 1%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(65, 50, 0, 0.25)), color-stop(1%, rgba(65, 50, 0, 0.25)), color-stop(68%, rgba(65, 50, 0, 0)), color-stop(100%, rgba(65, 50, 0, 0)));
+            background: -webkit-linear-gradient(top, rgba(65, 50, 0, 0.25) 0%, rgba(65, 50, 0, 0.25) 1%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -o-linear-gradient(top, rgba(65, 50, 0, 0.25) 0%, rgba(65, 50, 0, 0.25) 1%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -ms-linear-gradient(top, rgba(65, 50, 0, 0.25) 0%, rgba(65, 50, 0, 0.25) 1%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: linear-gradient(to bottom, rgba(65, 50, 0, 0.25) 0%, rgba(65, 50, 0, 0.25) 1%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            border-radius: 2px;
+        }
+        .on.switch {
+            background-image: -webkit-gradient(linear, 0 0, 0 111, color-stop(0.018, #fff), color-stop(0.018, #f7f6f5), color-stop(0.99, #eee6e2), color-stop(0.99, #f0ece8), to(#f0ece8));
+            background-image: -webkit-linear-gradient(#fff 1.8%, #f7f6f5 1.8%, #eee6e2 99%, #f0ece8 99%, #f0ece8);
+            background-image: -moz-linear-gradient(#fff 1.8%, #f7f6f5 1.8%, #eee6e2 99%, #f0ece8 99%, #f0ece8);
+            background-image: -o-linear-gradient(#fff 1.8%, #f7f6f5 1.8%, #eee6e2 99%, #f0ece8 99%, #f0ece8);
+            background-image: linear-gradient(#fff 1.8%, #f7f6f5 1.8%, #eee6e2 99%, #f0ece8 99%, #f0ece8);
+            box-shadow: none;
+            box-shadow: inset 0 -13px 2px rgba(255, 255, 255, 1);
+        }
+        .on.switch:before {
+            margin-top: 10px;
+            background: orange;
+            box-shadow: inset 0 1px rgba(255, 255, 255, .2), 0 0 2px orange;
+        }
+        .on.switch:after {
+            content: "";
+            position: absolute;
+            top: 90%;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: -moz-linear-gradient(top, rgba(65, 50, 0, 0.3) 0%, rgba(65, 50, 0, 0.3) 35%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(65, 50, 0, 0.3)), color-stop(35%, rgba(65, 50, 0, 0.3)), color-stop(68%, rgba(65, 50, 0, 0)), color-stop(100%, rgba(65, 50, 0, 0)));
+            background: -webkit-linear-gradient(top, rgba(65, 50, 0, 0.3) 0%, rgba(65, 50, 0, 0.3) 35%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -o-linear-gradient(top, rgba(65, 50, 0, 0.3) 0%, rgba(65, 50, 0, 0.3) 35%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: -ms-linear-gradient(top, rgba(65, 50, 0, 0.3) 0%, rgba(65, 50, 0, 0.3) 35%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            background: linear-gradient(to bottom, rgba(65, 50, 0, 0.3) 0%, rgba(65, 50, 0, 0.3) 35%, rgba(65, 50, 0, 0) 68%, rgba(65, 50, 0, 0) 100%);
+            border-radius: 2px;
+        }
+        body {
+            background: #1b1003;
+            position: relative;
+        }
+        .radial:before {
+            content: "";
+            position: absolute;
+            top: -160px;
+            width: 1200px;
+            max-width: 100%;
+            height: 400px;
+            background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 2%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%, rgba(255, 255, 255, 0.15)), color-stop(2%, rgba(255, 255, 255, 0.15)), color-stop(56%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 0)));
+            background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 2%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+            background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 2%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+            background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 2%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 1%, rgba(255, 255, 255, 0.15) 2%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+        }
+        .light {
+            background: #4b4033;
+        }
+        #label {
+            font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+            background-color: rgba(0, 0, 0, 0.1);
+            width: 12px;
+            height: 12px;
+            display: block;
+            margin: 20px auto;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            text-indent: -99999px;
+            top: 20px;
+            position: relative;
+        }
+        #label.start {} #label.initalizing {} #label.connection {
+            background-color: orange;
+        }
+        #label.received {
+            background-color: orange;
+        }
+        #label.processing {
+            background-color: orange;
+        }
+        #label.ok {
+            background-color: green;
+        }
+        #label.bad {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body class="light">
+    <div class="switches">
+        <div id="switch1" class="switch on" onclick="toggleSwitch();">
+
+        </div>
+    </div>
+    <div id="label" class="start"></div>
+    <script>
+        var xmlHttp = null;
+        var action = null;
+
+        function toggleSwitch() {
+            document.getElementById("switch1").classList.toggle("on");
+            document.body.classList.toggle("light");
+            "OFF"
+            if (document.getElementById("switch1").classList.contains("on")) {
+                action = "ON";
+            } else {
+                action = "OFF";
+            }
+            pushTheButton(action);
+        }
+
+
+        function pushTheButton(action) {
+            var url = "/switch_on_off.lua?action=" + action;
+
+            xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = processRequest;
+            xmlHttp.open("GET", url, true);
+            xmlHttp.send(null);
+        }
+
+        function processRequest() {
+            if (xmlHttp.readyState == 0) {
+                document.getElementById("label").innerHTML = 'Initalizing...';
+                document.getElementById("label").className = "initalizing";
+            } else if (xmlHttp.readyState == 1) {
+                document.getElementById("label").innerHTML = 'Server connection established.';
+                document.getElementById("label").className = "connection";
+            } else if (xmlHttp.readyState == 2) {
+                document.getElementById("label").innerHTML = 'Request received.';
+                document.getElementById("label").className = "received";
+            } else if (xmlHttp.readyState == 3) {
+                document.getElementById("label").innerHTML = 'Processing request.';
+                document.getElementById("label").className = "processing";
+            } else if (xmlHttp.readyState == 4) {
+                if (xmlHttp.status == 200) {
+                    document.getElementById("label").innerHTML = xmlHttp.responseText;
+                    document.getElementById("label").className = "ok";
+                    sleep(300);
+                    document.getElementById("label").className = "start";
+                } else if (xmlHttp.status == 400) {
+                    document.getElementById("label").innerHTML = 'Bad request.';
+                    document.getElementById("label").className = "bad";
+                }
+            }
+        }
+
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
