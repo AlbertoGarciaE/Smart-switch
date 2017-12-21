@@ -1,0 +1,16 @@
+Vers: 3.6.2
+Time: 20171116
+Desc:
+	Bugs in the version 3.6.1
+	1. Error comport will stop the tool
+	2. Efuse check always fails
+	3. Cannot download ESP-WROOM-S2 by hspi download
+	4. No com error hint
+	5. Easy to get stucked
+	6. Cannot download ESP32-D2WD
+	These bugs are all fixed in version 3.6.2
+	
+	Features in version 3.6.2
+	1. Save mac address of all the chips tested by enabling one parameter
+	2. Add ESP32-PICO download
+	
